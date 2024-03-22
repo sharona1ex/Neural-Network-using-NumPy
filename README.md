@@ -1,5 +1,8 @@
 # Neural Network using NumPy
 
+![51c](https://github.com/StarRider/Neural-Network-using-NumPy/assets/30108439/4fa99f13-fe95-4312-87b2-34a6b8e2650e)
+
+
 ## Objective
 To build a neural network class from scratch using NumPy and use it for Titanic dataset from Kaggle.
 
@@ -30,4 +33,7 @@ The dataset is obtained from Kaggle and the dataset has also been placed here in
 1. `data/train.csv` : This is the training data, that is furhter split into 80% percent of training and 20% of validation data (This split is done within `neural_network.py` in pre_process function).
 2. `data/test.csv`  : This is the test data, which the model touches the first time after training and validation is done.
 
+## Results
+![image](https://github.com/StarRider/Neural-Network-using-NumPy/assets/30108439/2bf1a263-e573-4d0b-a19d-08a1b93056b1)
 
+Note: Hidden layer with [3, 2] means that there are two hidden layers, one with 3 and another with 2 neurons. Similarly, [2] means only one hidden layer with two neurons.
