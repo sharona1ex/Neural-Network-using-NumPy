@@ -15,5 +15,9 @@ To run it on your machine:
 3. Go to the directory `Neural-Network-using-NumPy`
 4. Run `model.py` using Python 3.10
 
+Following these steps will help you to run a pretrained model. To train a fresh model open `model.py` and set `TRAIN=True`. Also feel free to change other configurations. Your trained model will be stored in the `trained_models` folder for your future use.
+
+
+
 
 
