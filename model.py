@@ -3,9 +3,10 @@ from neural_network import MyNN
 import pandas as pd
 import pickle
 from datetime import datetime
+import sys
 
 
-def createNN(layer_sizes, activations, train, model=None):
+def createNN(layer_sizes, activations, train, model=None, train_config=None):
     """
     A function to create neural net from the dataset's training part and report accuracy.
     :param layer_sizes: layer sizes
@@ -29,7 +30,11 @@ def createNN(layer_sizes, activations, train, model=None):
     # # Train the neural network
     if train:
         # train model
-        nn.train(X_train, y_train, epochs=1000, batch_size=2, learning_rate=0.01)
+        if train_config is not None:
+            nn.train(X_train, y_train, epochs=train_config['epochs'], batch_size=2,
+                     learning_rate=train_config['learning_rate'])
+        else:
+            nn.train(X_train, y_train, epochs=1000, batch_size=2, learning_rate=0.01)
         # save the model
         timestamp = datetime.now()
         timestamp_str = timestamp.strftime("%Y-%m-%d_%H-%M-%S")
@@ -62,18 +67,51 @@ def createNN(layer_sizes, activations, train, model=None):
     return nn
 
 
+def report_accuracy(model_path):
+    # load model
+    with open(model_path, 'rb') as file:
+        model = pickle.load(file)
+    print("Structure:", model.layer_sizes)
+    print("Activations:", model.activation_functions)
+    # load titanic data
+    dataset = pd.read_csv("data/train.csv")
+
+    # clean the dataset from any outliers
+    dataset = model.clean(dataset)
+
+    # pre-process data
+    X_train, y_train, X_validation, y_validation = model.pre_process(dataset)
+
+    print("Training accuracy:")
+    predictions = model.predict(X_train)
+    print(str(model.accuracy(predictions[0], y_train[0]) * 100) + " %")
+
+    print("Validation accuracy:")
+    predictions_val = model.predict(X_validation)
+    print(str(model.accuracy(predictions_val[0], y_validation[0]) * 100) + " %")
+
+    print("Testing accuracy:")
+    test_dataset = pd.read_csv("data/test.csv")
+    X_test, y_test = model.pre_process(test_dataset, training=False)
+    predictions_test = model.predict(X_test)
+    print(str(model.accuracy(predictions_test[0], y_test[0]) * 100) + " %")
+
+
 if __name__ == '__main__':
     # CONFIGURATIONS
     # # if this is false then trained model will be used else a model will be trained afresh.
-    TRAIN = False
+    TRAIN = True
     MODEL = 'trained_models/nn_2024-03-21_22-21-23.pkl'
     # # Neural Network configuration (2 hidden layer with 2 neurons each)
     LAYER_SIZES = [4, 2, 2, 1]
     # # Activation functions to be used after each layer
     ACTIVATION_FUNCTIONS = [sigmoid, sigmoid, sigmoid]
+    # # Training configuration
+    TRAIN_CONF = {"epochs": 100, "learning_rate": 0.01}
 
     # MODELLING
     nn = createNN(layer_sizes=LAYER_SIZES,
                   activations=ACTIVATION_FUNCTIONS,
                   train=TRAIN,
-                  model=MODEL)
+                  model=MODEL,
+                  train_config=TRAIN_CONF)
