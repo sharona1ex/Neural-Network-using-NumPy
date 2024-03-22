@@ -17,7 +17,9 @@ To run it on your machine:
 
 Following these steps will help you to run a pretrained model. To train a fresh model open `model.py` and set `TRAIN=True`. Also feel free to change other configurations. Your trained model will be stored in the `trained_models` folder for your future use.
 
-
-
+## Dataset
+The dataset is obtained from Kaggle and the dataset has also been placed here in the `data` folder.
+1. `data/train.csv` : This is the training data, that is furhter split into 80% percent of training and 20% of validation data (This split is done within `neural_network.py` in pre_process function).
+2. `data/test.csv`  : This is the test data, which the model touches the first time after training and validation is done.
 
 
