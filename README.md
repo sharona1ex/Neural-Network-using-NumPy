@@ -2,6 +2,7 @@
 
 ![51c](https://github.com/StarRider/Neural-Network-using-NumPy/assets/30108439/4fa99f13-fe95-4312-87b2-34a6b8e2650e)
 
+(Source: https://knowyourmeme.com/memes/zach-galifianakis-math)
 
 ## Objective
 To build a neural network class from scratch using NumPy and use it for Titanic dataset from Kaggle.
